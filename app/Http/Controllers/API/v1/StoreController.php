@@ -10,7 +10,7 @@ class StoreController extends Controller
 {
     public function index()
     {
-        $stores = Store::all();
+        $stores = Store::all()->load('items');
 
         return response()->json([
             "status" => "OK",
@@ -23,6 +23,7 @@ class StoreController extends Controller
         $store = Store::find($id);
 
         if ($store !== null) {
+            $store->load('items');
             $status = "OK";
             $code = 200;
         } else {
