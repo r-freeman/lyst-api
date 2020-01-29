@@ -17,8 +17,10 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::middleware('api')->group(function () {
+Route::prefix('v1')->middleware('api')->group(function () {
     Route::resource('stores', 'API\v1\StoreController')->except([
         'create', 'edit', 'destroy'
     ]);
+
+    Route::resource('items', 'API\v1\ItemController');
 });
