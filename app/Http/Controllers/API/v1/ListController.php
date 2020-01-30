@@ -10,7 +10,7 @@ class ListController extends Controller
 {
     public function index()
     {
-        $lists = ListModel::all()->load('user');
+        $lists = ListModel::all()->load('items')->load('user');
 
         return response()->json([
             "status" => "OK",
@@ -23,7 +23,7 @@ class ListController extends Controller
         $list = ListModel::find($id);
 
         if ($list !== null) {
-            $list->load('user');
+            $list->load('items')->load('user');
             $status = "OK";
             $code = 200;
         } else {
