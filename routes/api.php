@@ -23,4 +23,5 @@ Route::prefix('v1')->middleware('api')->group(function () {
     ]);
 
     Route::resource('items', 'API\v1\ItemController');
+    Route::resource('lists', 'API\v1\ListController');
 });

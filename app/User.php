@@ -40,4 +40,8 @@ class User extends Authenticatable
     public function roles() {
         return $this->belongsToMany('App\Role', 'user_roles');
     }
+
+    public function lists() {
+        return $this->hasMany('App\ListModel');
+    }
 }
