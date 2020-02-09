@@ -14,27 +14,27 @@ class StoresTableSeeder extends Seeder
     {
         $amazonUk = new Store();
         $amazonUk->name = "amazon";
-        $amazonUk->region = "UK";
+        $amazonUk->region = "uk";
         $amazonUk->save();
 
         $amazonDe = new Store();
         $amazonDe->name = "amazon";
-        $amazonDe->region = "DE";
+        $amazonDe->region = "de";
         $amazonDe->save();
 
         $amazonFr = new Store();
         $amazonFr->name = "amazon";
-        $amazonFr->region = "FR";
+        $amazonFr->region = "fr";
         $amazonFr->save();
 
         $amazonEs = new Store();
         $amazonEs->name = "amazon";
-        $amazonEs->region = "ES";
+        $amazonEs->region = "es";
         $amazonEs->save();
 
         $amazonIt = new Store();
         $amazonIt->name = "amazon";
-        $amazonIt->region = "IT";
+        $amazonIt->region = "it";
         $amazonIt->save();
     }
 }
