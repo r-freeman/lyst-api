@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Item;
+use Validator;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -16,6 +17,50 @@ class ItemController extends Controller
             "status" => "OK",
             "data" => $items
         ], 200);
+    }
+
+    public function store(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|string',
+            'image' => 'required|string',
+            'item_code' => 'required|string',
+            'price' => 'nullable|numeric',
+            'url' => 'required|string',
+            'store_id' => 'required|integer|exists:stores,id'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                "status" => "error",
+                "errors" => $validator->errors()
+            ], 422);
+        }
+
+        $item_code = $request->input('item_code');
+        $store_id = $request->input('store_id');
+
+        // find existing item
+        $item = Item::where('item_code', $item_code)
+            ->where('store_id', $store_id)->first();
+
+        if ($item === null) {
+            // item doesn't exist, make a new one.
+            $item = new Item();
+        }
+
+        $item->title = $request->input('title');
+        $item->image = $request->input('image');
+        $item->item_code = $item_code;
+        $item->price = $request->input('price');
+        $item->url = $request->input('url');
+        $item->store_id = $store_id;
+        $item->save();
+
+        return response()->json([
+            "status" => "OK",
+            "data" => $item
+        ]);
     }
 
     public function show($id)
