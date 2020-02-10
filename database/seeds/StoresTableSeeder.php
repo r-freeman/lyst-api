@@ -36,5 +36,10 @@ class StoresTableSeeder extends Seeder
         $amazonIt->name = "amazon";
         $amazonIt->region = "it";
         $amazonIt->save();
+
+        $ebayUk = new Store();
+        $ebayUk->name = "ebay";
+        $ebayUk->region = "uk";
+        $ebayUk->save();
     }
 }
