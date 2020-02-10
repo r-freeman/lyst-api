@@ -15,11 +15,11 @@ class CreateItemsTable extends Migration
     {
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('title');
+            $table->longText('title');
             $table->string('image');
             $table->string('item_code');
             $table->decimal('price', 10, 2)->nullable();
-            $table->string('url');
+            $table->longText('url');
             $table->bigInteger('store_id')->unsigned();
             $table->timestamps();
 
