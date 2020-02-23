@@ -37,24 +37,13 @@ class ItemController extends Controller
             ], 422);
         }
 
-        $item_code = $request->input('item_code');
-        $store_id = $request->input('store_id');
-
-        // find existing item
-        $item = Item::where('item_code', $item_code)
-            ->where('store_id', $store_id)->first();
-
-        if ($item === null) {
-            // item doesn't exist, make a new one.
-            $item = new Item();
-        }
-
+        $item = new Item();
         $item->title = $request->input('title');
         $item->image = $request->input('image');
-        $item->item_code = $item_code;
+        $item->item_code = $request->input('item_code');
         $item->price = $request->input('price');
         $item->url = $request->input('url');
-        $item->store_id = $store_id;
+        $item->store_id = $request->input('store_id');
         $item->save();
 
         return response()->json([
