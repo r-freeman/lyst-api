@@ -32,4 +32,5 @@ Route::prefix('v1')->middleware('auth:api')->group(function () {
     ]);
 
     Route::get('user', 'API\v1\PassportController@user');
+    Route::get('logout', 'API\v1\PassportController@logout');
 });
