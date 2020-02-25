@@ -13,18 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 Route::prefix('v1')->middleware('api')->group(function () {
-    Route::resource('stores', 'API\v1\StoreController')->except([
-        'create', 'edit', 'destroy'
-    ]);
+    Route::post('login', 'API\v1\PassportController@login');
+    Route::post('register', 'API\v1\PassportController@register');
+});
 
+Route::prefix('v1')->middleware('auth:api')->group(function () {
     Route::resource('items', 'API\v1\ItemController')->except([
         'create', 'edit'
     ]);
 
-    Route::resource('lists', 'API\v1\ListController');
+    Route::resource('lists', 'API\v1\ListController')->except([
+        'create', 'edit'
+    ]);
+
+    Route::resource('stores', 'API\v1\StoreController')->except([
+        'create', 'edit', 'destroy'
+    ]);
+
+    Route::get('user', 'API\v1\PassportController@user');
 });
