@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\ListModel;
 use Illuminate\Http\Request;
 use Validator;
 use App\User;
@@ -26,6 +27,12 @@ class PassportController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+
+        $list = new ListModel();
+        $list->name = 'Your First List';
+        $list->is_public = 0;
+        $list->user_id = $user->id;
+        $list->save();
 
         $token = $user->createToken('lyst-api')->accessToken;
         return response()->json(['token' => $token], 200);
