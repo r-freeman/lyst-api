@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\ListModel;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,8 @@ class ListController extends Controller
 {
     public function index()
     {
-        $lists = ListModel::all()->load('items')->load('user');
+        $lists = Auth::user()->lists()->get();
+        $lists->load('items');
 
         return response()->json([
             "status" => "OK",
