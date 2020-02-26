@@ -15,6 +15,6 @@ class ListModel extends Model
 
     public function items()
     {
-        return $this->belongsToMany('App\Item', 'items_in_lists', 'item_id', 'list_id');
+        return $this->belongsToMany('App\Item', 'items_in_lists', 'list_id', 'item_id');
     }
 }
