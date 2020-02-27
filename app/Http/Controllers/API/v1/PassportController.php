@@ -29,6 +29,12 @@ class PassportController extends Controller
         ]);
 
         $list = new ListModel();
+        $list->name = 'unlisted';
+        $list->is_public = 0;
+        $list->user_id = $user->id;
+        $list->save();
+
+        $list = new ListModel();
         $list->name = 'Your First List';
         $list->is_public = 0;
         $list->user_id = $user->id;
