@@ -53,7 +53,7 @@ class ListController extends Controller
         $list = ListModel::find($id);
 
         if ($list !== null) {
-            $list->load('items')->load('user');
+            $list->load('items');
             $status = "OK";
             $code = 200;
         } else {
@@ -65,5 +65,44 @@ class ListController extends Controller
             "status" => $status,
             "data" => $list
         ], $code);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $list = ListModel::find($id);
+
+        if ($list === null) {
+            return response()->json(
+                [
+                    "status" => "List not found",
+                    "data" => null
+                ], 404
+            );
+        }
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'is_public' => 'required|integer'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(
+                [
+                    "status" => "error",
+                    "errors" => $validator->errors()
+                ], 422
+            );
+        }
+
+        $list->name = $request->input('name');
+        $list->is_public = 0;
+        $list->save();
+
+        return response()->json(
+            [
+                "status" => "OK",
+                "data" => $list
+            ], 200
+        );
     }
 }
