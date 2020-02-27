@@ -105,4 +105,35 @@ class ListController extends Controller
             ], 200
         );
     }
+
+    public function destroy($id)
+    {
+        $list = ListModel::find($id);
+
+        if ($list === null) {
+            $status = "List not found";
+            $code = 404;
+        } else {
+            $unlisted = Auth::user()->lists()->where('name', 'unlisted')->first();
+            $listItems = $list->items()->get();
+
+            if ($listItems) {
+                foreach ($listItems as $item) {
+                    $list->items()->detach($item->id);
+                    $unlisted->items()->attach($item->id);
+                }
+            }
+
+            $list->delete();
+            $status = "OK";
+            $code = 200;
+        }
+
+        return response()->json(
+            [
+                "status" => $status,
+                "data" => null
+            ], $code
+        );
+    }
 }
