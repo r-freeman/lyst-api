@@ -28,17 +28,17 @@ class PassportController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        $list = new ListModel();
-        $list->name = 'unlisted';
-        $list->is_public = 0;
-        $list->user_id = $user->id;
-        $list->save();
+        $unlisted = new ListModel();
+        $unlisted->name = "unlisted";
+        $unlisted->is_public = 0;
+        $unlisted->user_id = $user->id;
+        $unlisted->save();
 
-        $list = new ListModel();
-        $list->name = 'Your First List';
-        $list->is_public = 0;
-        $list->user_id = $user->id;
-        $list->save();
+        $firstList = new ListModel();
+        $firstList->name = "Your First List";
+        $firstList->is_public = 0;
+        $firstList->user_id = $user->id;
+        $firstList->save();
 
         $token = $user->createToken('lyst-api')->accessToken;
         return response()->json(['token' => $token], 200);
