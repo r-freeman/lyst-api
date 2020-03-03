@@ -15,19 +15,18 @@ class ListsTableSeeder extends Seeder
     {
         $user = User::find(2);
 
+        // create unlisted list
+        $unlisted = new ListModel();
+        $unlisted->name = "unlisted";
+        $unlisted->is_public = 0;
+        $unlisted->user_id = $user->id;
+        $unlisted->save();
+
+        // create another list
         $firstList = new ListModel();
-        $firstList->name = "Black Friday";
+        $firstList->name = "Your First List";
+        $firstList->is_public = 0;
         $firstList->user_id = $user->id;
         $firstList->save();
-
-        $secondList = new ListModel();
-        $secondList->name = "Gifts for her";
-        $secondList->user_id = $user->id;
-        $secondList->save();
-
-        $thirdList = new ListModel();
-        $thirdList->name = "Noah's Birthday";
-        $thirdList->user_id = $user->id;
-        $thirdList->save();
     }
 }

@@ -13,16 +13,16 @@ class ItemsInListsTableSeeder extends Seeder
      */
     public function run()
     {
-        // attach first list to first item
+        // attach seeded item to list
         $firstItem = Item::find(1);
-        $firstItem->lists()->attach(ListModel::where('id', 1)->first());
+        $firstItem->lists()->attach(ListModel::where('id', 2)->first());
 
-        // attach second list to second item
+        // attach seeded item to list
         $secondItem = Item::find(2);
         $secondItem->lists()->attach(ListModel::where('id', 2)->first());
 
-        // attach third list to third item
+        // attach seeded item to list
         $thirdItem = Item::find(3);
-        $thirdItem->lists()->attach(ListModel::where('id', 3)->first());
+        $thirdItem->lists()->attach(ListModel::where('id', 2)->first());
     }
 }

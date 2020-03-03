@@ -12,8 +12,10 @@ class ListController extends Controller
 {
     public function index()
     {
-        $lists = Auth::user()->lists()->get();
-        $lists->load('items');
+        // find the users lists and include items and store relations
+        $lists = ListModel::with(['items.store', 'items.lists'])
+            ->where('user_id', '=', Auth::id())
+            ->get();
 
         return response()->json([
             "status" => "OK",
@@ -36,6 +38,7 @@ class ListController extends Controller
             ], 422);
         }
 
+        // save a new list
         $list = new ListModel();
         $list->name = $request->input('name');
         $list->is_public = $request->input('is_public');
@@ -71,6 +74,7 @@ class ListController extends Controller
     {
         $list = ListModel::find($id);
 
+        // couldn't find list
         if ($list === null) {
             return response()->json(
                 [
@@ -80,6 +84,7 @@ class ListController extends Controller
             );
         }
 
+        // validate the name, and is_public data
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'is_public' => 'required|integer'
@@ -94,9 +99,13 @@ class ListController extends Controller
             );
         }
 
+        // update the list
         $list->name = $request->input('name');
         $list->is_public = 0;
         $list->save();
+
+        // load the items and store relations
+        $list->load('items.store');
 
         return response()->json(
             [
@@ -114,16 +123,26 @@ class ListController extends Controller
             $status = "List not found";
             $code = 404;
         } else {
-            $unlisted = Auth::user()->lists()->where('name', 'unlisted')->first();
+            // retrieve the unlisted list
+            $unlisted = Auth::user()
+                ->lists()
+                ->where('name', 'unlisted')
+                ->first();
+
+            // retrieve the list items
             $listItems = $list->items()->get();
 
             if ($listItems) {
+                // loop through list items
                 foreach ($listItems as $item) {
+                    // remove item from existing list
                     $list->items()->detach($item->id);
+                    // attach items to the unlisted list
                     $unlisted->items()->attach($item->id);
                 }
             }
 
+            // finally delete the list
             $list->delete();
             $status = "OK";
             $code = 200;
