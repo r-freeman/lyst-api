@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\ListModel;
+use App\Role;
 use Illuminate\Http\Request;
 use Validator;
 use App\User;
@@ -27,6 +28,9 @@ class PassportController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+
+        // attach the user role to newly created user
+        $user->roles()->attach(Role::where('name', 'user')->first());
 
         $unlisted = new ListModel();
         $unlisted->name = "unlisted";
