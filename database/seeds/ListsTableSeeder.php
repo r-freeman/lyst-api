@@ -13,7 +13,7 @@ class ListsTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = User::find(2);
+        $user = User::find(11);
 
         // create unlisted list
         $unlisted = new ListModel();

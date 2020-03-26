@@ -18,11 +18,11 @@ class ItemsInListsTableSeeder extends Seeder
         $firstItem->lists()->attach(ListModel::where('id', 2)->first());
 
         // attach seeded item to list
-        $secondItem = Item::find(2);
+        $secondItem = Item::find(11);
         $secondItem->lists()->attach(ListModel::where('id', 2)->first());
 
         // attach seeded item to list
-        $thirdItem = Item::find(3);
+        $thirdItem = Item::find(21);
         $thirdItem->lists()->attach(ListModel::where('id', 2)->first());
     }
 }
