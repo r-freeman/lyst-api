@@ -15,14 +15,14 @@ class ItemsInListsTableSeeder extends Seeder
     {
         // attach seeded item to list
         $firstItem = Item::find(1);
-        $firstItem->lists()->attach(ListModel::where('id', 2)->first());
+        $firstItem->lists()->attach(ListModel::where('id', 11)->first());
 
         // attach seeded item to list
         $secondItem = Item::find(11);
-        $secondItem->lists()->attach(ListModel::where('id', 2)->first());
+        $secondItem->lists()->attach(ListModel::where('id', 11)->first());
 
         // attach seeded item to list
         $thirdItem = Item::find(21);
-        $thirdItem->lists()->attach(ListModel::where('id', 2)->first());
+        $thirdItem->lists()->attach(ListModel::where('id', 11)->first());
     }
 }
