@@ -91,19 +91,6 @@
     @yield('content')
 </main>
 
-<div class="hidden lg:block grid lg:grid-cols-4 gap-4">
-    <div class="w-full mt-5">
-        <button type="button" onclick="location.href='http://chrome.joinlyst.com/';"
-                class="flex justify-start pl-4 bg-white py-2 pr-8 border-2 border-tin rounded-lg mx-auto outline-none focus:outline-none active:outline-none">
-                <span class="inline-flex items-center">
-                    <img src="{{ asset('svg/chrome.svg') }}" alt="Download Chrome Extension" class="w-12 h-12 mr-2">
-                    <span class="text-left text-sm leading-tight font-thin">
-                        Download for <span class="block text-lg font-normal">Google Chrome</span>
-                    </span>
-                </span>
-        </button>
-    </div>
-</div>
 
 </body>
 
